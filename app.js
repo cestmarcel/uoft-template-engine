@@ -17,10 +17,30 @@ async function mainApp(){
     const team = [];
 
     const managerData = await inquirer.prompt([
-        {name: "name", type: "input", message: "What is the manager's name?"},
-        {name: "email", type: "input", message: "What is their email?"},
-        {name: "officeNumber", type: "input", message: "What is the manager's office number?"},
-        {name: "count", type: "input", message: "How many people are on their team?"}
+        {
+            name: "name", 
+            type: "input", 
+            message: "What is the manager's name?",
+            validate: (input) => {if (input == '') {return "Error: Please enter a valid name"} return true}
+        },
+        {
+            name: "email", 
+            type: "input", 
+            message: "What is their email?",
+            validate: (input) => {if (input == '' || !input.includes("@") ) {return "Error: Please enter a valid email address"} return true}
+        },
+        {
+            name: "officeNumber", 
+            type: "input", 
+            message: "What is the manager's office number?",
+            validate: (input) => {if (input == '') {return "Error: Please enter a valid office number"} return true}
+        },
+        {
+            name: "count", 
+            type: "input", 
+            message: "How many people are on their team?",
+            validate: (input) => {if (input == '') {return "Error: Please enter a valid headcount"} return true}
+        }
     ])
 
     // Creating manager object
@@ -28,22 +48,56 @@ async function mainApp(){
 
     for(let userCnt=1; userCnt<=managerData.count; userCnt++){
         const user = await inquirer.prompt([
-            {name: "type", type: "list", message: `For person ${userCnt}/${managerData.count}, please choose the type of team member:`,
-        choices: ["intern", "engineer"]}
+            {
+                name: "type", 
+                type: "list", 
+                message: `For person ${userCnt}/${managerData.count}, please choose the type of team member:`,
+                choices: ["intern", "engineer"]
+            }
         ]);
 
         if(user.type == "engineer"){
             const userData = await inquirer.prompt([
-                {name: "name", type: "input", message: "What is the engineer's name?"},
-                {name: "email", type: "input", message: "What is the engineer's email?"},
-                {name: "github", type: "input", message: "What is the engineer's Github username?"}
+                {
+                    name: "name", 
+                    type: "input", 
+                    message: "What is the engineer's name?", 
+                    validate: (input) => {if (input == '') {return "Error: Please enter a valid name"} return true}
+                },
+                {
+                    name: "email", 
+                    type: "input", 
+                    message: "What is the engineer's email?",
+                    validate: (input) => {if (input == '' || !input.includes("@") ) {return "Error: Please enter a valid email address"} return true}
+                },
+                {
+                    name: "github", 
+                    type: "input", 
+                    message: "What is the engineer's Github username?",
+                    validate: (input) => {if (input == '') {return "Error: Please enter a valid github name"} return true}
+                }
             ]);
             team.push(new Engineer(userData.name, ID++, userData.email, userData.github));
         } else {
             const userData = await inquirer.prompt([
-                {name: "name", type: "input", message: "What is the intern's name?"},
-                {name: "email", type: "input", message: "What is the intern's email?"},
-                {name: "school", type: "input", message: "What is the intern's school?"}
+                {
+                    name: "name", 
+                    type: "input", 
+                    message: "What is the intern's name?",
+                    validate: (input) => {if (input == '') {return "Error: Please enter a valid name"} return true}
+                },
+                {
+                    name: "email", 
+                    type: "input", 
+                    message: "What is the intern's email?",
+                    validate: (input) => {if (input == '' || !input.includes("@") ) {return "Error: Please enter a valid email address"} return true}
+                },
+                {
+                    name: "school", 
+                    type: "input", 
+                    message: "What is the intern's school?",
+                    validate: (input) => {if (input == '') {return "Error: Please enter a school name"} return true}
+                }
             ]);
             team.push(new Intern(userData.name, ID++, userData.email, userData.school));
         }
@@ -54,25 +108,3 @@ async function mainApp(){
     console.log(`Finished writing the file. It's accessible under: ${outputPath}`);
 }
 mainApp();
-// Write code to use inquirer to gather information about the development team members,
-// and to create objects for each team member (using the correct classes as blueprints!)
-
-// After the user has input all employees desired, call the `render` function (required
-// above) and pass in an array containing all employee objects; the `render` function will
-// generate and return a block of HTML including templated divs for each employee!
-
-// After you have your html, you're now ready to create an HTML file using the HTML
-// returned from the `render` function. Now write it to a file named `team.html` in the
-// `output` folder. You can use the variable `outputPath` above target this location.
-// Hint: you may need to check if the `output` folder exists and create it if it
-// does not.
-
-// HINT: each employee type (manager, engineer, or intern) has slightly different
-// information; write your code to ask different questions via inquirer depending on
-// employee type.
-
-// HINT: make sure to build out your classes first! Remember that your Manager, Engineer,
-// and Intern classes should all extend from a class named Employee; see the directions
-// for further information. Be sure to test out each class and verify it generates an
-// object with the correct structure and methods. This structure will be crucial in order
-// for the provided `render` function to work! ```
