@@ -43,7 +43,7 @@ async function mainApp(){
             const userData = await inquirer.prompt([
                 {name: "name", type: "input", message: "What is the intern's name?"},
                 {name: "email", type: "input", message: "What is the intern's email?"},
-                {name: "github", type: "input", message: "What is the intern's school?"}
+                {name: "school", type: "input", message: "What is the intern's school?"}
             ]);
             team.push(new Intern(userData.name, ID++, userData.email, userData.school));
         }
