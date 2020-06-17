@@ -16,6 +16,16 @@ async function mainApp(){
     console.log(`[mainApp] is getting started!`);
     const team = [];
 
+    function validateEmail(email){
+        const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return regex.test(email.toLowerCase()) ? true : "Error: Please enter a valid email address";
+    }
+
+    function validatePhoneNumber(phoneNumber){
+        const regex = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/
+        return regex.test(phoneNumber) ? true : "Error: Please enter a valid phone number";
+    }
+
     const managerData = await inquirer.prompt([
         {
             name: "name", 
@@ -27,13 +37,13 @@ async function mainApp(){
             name: "email", 
             type: "input", 
             message: "What is their email?",
-            validate: (input) => {if (input == '' || !input.includes("@") ) {return "Error: Please enter a valid email address"} return true}
+            validate: validateEmail
         },
         {
             name: "officeNumber", 
             type: "input", 
             message: "What is the manager's office number?",
-            validate: (input) => {if (input == '') {return "Error: Please enter a valid office number"} return true}
+            validate: validatePhoneNumber
         },
         {
             name: "count", 
@@ -68,7 +78,7 @@ async function mainApp(){
                     name: "email", 
                     type: "input", 
                     message: "What is the engineer's email?",
-                    validate: (input) => {if (input == '' || !input.includes("@") ) {return "Error: Please enter a valid email address"} return true}
+                    validate: validateEmail
                 },
                 {
                     name: "github", 
@@ -90,7 +100,7 @@ async function mainApp(){
                     name: "email", 
                     type: "input", 
                     message: "What is the intern's email?",
-                    validate: (input) => {if (input == '' || !input.includes("@") ) {return "Error: Please enter a valid email address"} return true}
+                    validate: validateEmail
                 },
                 {
                     name: "school", 

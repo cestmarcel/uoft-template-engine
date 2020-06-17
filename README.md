@@ -25,7 +25,7 @@ To get started with the application, simply clone the project and run "npm insta
 
 You can use this application to quickly create an html page displaying key information about your team and team members. You can choose to display one manager and any number of engineers or interns. For managers, the page will display the name, title, email address, and phone number. For engineers, the page will display the name, title, email, and github username. For interns, the page will display the name, title, email, and school they're attending.
 
-The application validates the user's responses. No prompt will accept an empty field. The prompt for the email address requires an "@" to be included in the email address.
+The application validates the user's responses. No prompt will accept an empty field. The prompt for the email addresses and the manager's phone number is validated using regular expressions (credits below).
 
 Here's an example for a team page as an output:
 ![Screenshot of the team page](https://github.com/cestmarcel/uoft-template-engine/blob/master/assets/screenshots/team.png)
@@ -63,4 +63,6 @@ Ideally, the tests pass like so:
 
 - This application uses the inquirer module for Node.js. Documentation is available under https://www.npmjs.com/package/inquirer.
 - The application also uses the jest module for Node.js to perform the Javascript tests. Documentation is available under: https://www.npmjs.com/package/jest.
+- Regex for the email validation from: https://emailregex.com
+- Regex for the phone number validation from: https://phoneregex.com
 
